@@ -1,13 +1,6 @@
 ---
 # This playbook  deploys the quarkus
 
-- name: Clone the charts repo
-  ansible.builtin.git:
-    repo: https://github.com/ibm-garage-ref-storefront/inventory-ms-quarkus
-    dest: /tmp
-    single_branch: yes
-    version: master
-
 - name: helm dependency update
   command: helm dependency update /tmp/inventory-ms-quarkus/chart/base -n quarkus
 
