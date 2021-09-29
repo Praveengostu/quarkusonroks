@@ -1,5 +1,9 @@
 ---
 
+- hosts: all
+  roles:
+    - role: geerlingguy.helm
+
 - hosts: localhost
   vars:
     temp_path: /tmp
