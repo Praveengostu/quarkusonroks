@@ -1,3 +1,4 @@
 ---
 roles:
+  - role: azavea.unzip
   - role: geerlingguy.helm

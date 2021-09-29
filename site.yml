@@ -1,8 +1,12 @@
 ---
 
-- hosts: all
+
+
+- hosts: all    
   roles:
+    - { role: "azavea.unzip" }
     - role: geerlingguy.helm
+
 
 - hosts: localhost
   vars:

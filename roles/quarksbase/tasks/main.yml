@@ -2,13 +2,13 @@
 # This playbook  deploys the quarkus
 
 - name: helm dependency update
-  command: helm dependency update /tmp/inventory-ms-quarkus/chart/base -n quarkus
+  command: helm dependency update /tmp/inventory-ms-quarkus/chart/base
 
 - name: helm dependency update
-  command: helm install quarkus /tmp/inventory-ms-quarkus/chart/base --namespace quarkus --debug
+  command: helm install quarkus /tmp/inventory-ms-quarkus/chart/base
 
 - name: expose route
-  command: oc expose svc quarkus-base -n quarkus
+  command: oc expose svc quarkus-base
 
 - name: get route
   command: oc get route quarkus-base --template='{{.spec.host}}'
