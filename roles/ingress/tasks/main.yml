@@ -1,0 +1,43 @@
+- name: Ingress
+  k8s:
+    kubeconfig: "{{ kube_config.stdout }}"
+    api_version: networking.k8s.io/v1beta1
+    namespace: default
+    definition:
+      kind: Ingress
+      metadata:
+        name: quarkus-base
+        labels:
+          app.kubernetes.io/name: base
+          helm.sh/chart: base-1.1.3
+          app.kubernetes.io/instance: quarkus
+          app: quarkus
+      spec:
+        rules:
+          - host: base-default.containers.appdomain.cloud
+            http:
+              paths:
+                - path: 
+                  backend:
+                    serviceName: quarkus-base
+                    servicePort: http
+
+- name: Route 
+  k8s:
+    kubeconfig: "{{ kube_config.stdout }}"
+    api_version: route.openshift.io/v1
+    namespace: default
+    definition:
+      kind: Service
+      metadata:
+        name: quarkus-base
+        annotations:
+          argocd.argoproj.io/sync-options: Validate=false
+      spec:
+        to:
+          kind: Service
+          name: quarkus-base
+          weight: 100
+        tls:
+          termination: edge
+        wildcardPolicy: None
