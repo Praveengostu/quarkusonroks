@@ -22,22 +22,3 @@
                     serviceName: quarkus-base
                     servicePort: http
 
-- name: Route 
-  k8s:
-    kubeconfig: "{{ kube_config.stdout }}"
-    api_version: route.openshift.io/v1
-    namespace: default
-    definition:
-      kind: Service
-      metadata:
-        name: quarkus-base
-        annotations:
-          argocd.argoproj.io/sync-options: Validate=false
-      spec:
-        to:
-          kind: Service
-          name: quarkus-base
-          weight: 100
-        tls:
-          termination: edge
-        wildcardPolicy: None
